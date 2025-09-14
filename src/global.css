@@ -1,0 +1,27 @@
+@import "tailwindcss";
+/* @import "tailwindcss/preflight";
+@tailwind utilities; */
+
+@theme {
+    --color-main-red: #92140C;
+    --color-floral-white: #FFF8F0;
+    --color-sunglox: #FFCA39;
+    --color-light-red: #FFEAE9;
+    --color-grey: #635E5E;
+}
+
+
+* {
+    font-family: Cinzel;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root{
+    --night: #161414;
+}
+
+body {
+    background-color: var(--night);
+}
+
