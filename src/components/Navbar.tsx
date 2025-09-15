@@ -12,7 +12,7 @@ function Navbar({crawled}: NavbarProps) {
                 </div>
                 {crawled && 
                     <button className="px-4 h-14 bg-floral-white text-main-red text-2xl rounded-full font-extrabold hover:cursor-pointer hover:bg-light-red group relative overflow-hidden">
-                        <span className="inline-block transition-transform duration-300 group-hover:-translate-y-1">
+                        <span className="inline-block transition-transform duration-300 group-hover:translate-y-1">
                             EXPORT CSV
                         </span>
                     </button>}
