@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Navbar from '../components/Navbar.tsx'
 import MemberCard from '../components/MemberCard.tsx'
 
-function AboutUsPage() {
+function AboutUs() {
     return (
     <div>
-        <Navbar crawled={false}/>
+        <Navbar crawled={false} page='aboutus'/>
         <div className='flex justify-center p-15'>
             <div className='bg-floral-white w-[1335px] h-[683px]'> 
                 <div className='flex justify-center'>
@@ -39,4 +39,4 @@ function AboutUsPage() {
     )
 }
 
-export default AboutUsPage
+export default AboutUs
