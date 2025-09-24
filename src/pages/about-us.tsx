@@ -5,7 +5,7 @@ import MemberCard from '../components/MemberCard.tsx'
 function AboutUsPage() {
     return (
     <div>
-        <Navbar crawled={false}/>
+        <Navbar crawled={false} page={"aboutus"}/>
         <div className='flex items-center flex-col p-4'>
             <div className='flex items-center flex-col p-4 gap-4 bg-floral-white w-[1335px]'>
                 <h1 className='font-bold text-4xl'>ABOUT US</h1>

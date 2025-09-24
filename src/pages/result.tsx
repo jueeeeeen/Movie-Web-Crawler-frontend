@@ -2,6 +2,10 @@ import MovieCard from '../components/MovieCard.tsx'
 import { useEffect, useState } from "react";
 import Loader from '../components/loader.tsx';
 import Navbar from '../components/Navbar.tsx'
+import { useNavigate } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
+
 
 type MovieProps = {
     cover: string;
@@ -24,47 +28,42 @@ const movie_mock2: MovieProps = {
     genre: "Romantic"
 }
 
-function CrawlPage() {
+function Result() {
     const [loading, setLoading] = useState<boolean>(false);
     const [movies, setMovies] = useState<MovieProps[]>([]);
     const data_mock = [movie_mock, movie_mock2, movie_mock, movie_mock2, movie_mock];
+    const [results, setResults] = useState<any[]>([]);
+    
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const search = params.get("q") || "";
+    const filter = params.get("filter") || "all";
 
-    const handleCrawl = () => {
-        // mock data
-        setLoading(true);
-        setTimeout(() => {
-            setMovies(data_mock);
+    useEffect(() => {
+        setLoading(true)
+        const fetchData = async () => {
+        try {
+            const res = await fetch(
+                `http://127.0.0.1:8080/movies/update`
+            );
+            const data = await res.json();
+            setResults(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
             setLoading(false);
-        }, 2000);
+        }
+        };
 
-        // fetch("/api/movies")
-        // .then((res) => res.json())
-        // .then((data) => setMovies(data));
-    }
+        fetchData();
+    }, [search, filter]);
+
 
     return (
         <>
-        <Navbar crawled={movies.length > 0}/>
-        <div className='w-screen grid grid-cols-[20%_1fr] p-15 gap-6'>
-            <div className='flex flex-col gap-10 pr-6 border-r border-floral-white'>
-                <div className='bg-white w-full h-75'></div>
-                <div className='bg-white w-full h-64'></div>
-            </div>
-            <div className='flex flex-1 flex-col items-center gap-10'>
-                <div className='bg-white w-full h-18 self-start'></div>
-                
-                {!movies.length && !loading && 
-                    <button 
-                        className="relative bg-main-red rounded-3xl w-[290px] h-[148px] top-1/4 hover:cursor-pointer"
-                        onClick={handleCrawl}
-                    >
-                        <span className='text-4xl font-bold text-floral-white'>Start Crawling!!</span>
-                        <img
-                            className="absolute top-0 scale-[102%]"
-                            src="src/assets/crawl-button-border.svg"
-                        />
-                    </button>}
-                    
+        <Navbar crawled/>
+        <div className='w-screen min-h-screen p-15 gap-6'>
+            <div className='flex flex-1 flex-col items-center gap-10'>                    
                     {loading && <Loader/>}
                 
                     <div className="flex justify-between flex-wrap gap-3 w-full">
@@ -80,4 +79,4 @@ function CrawlPage() {
     )
 }
 
-export default CrawlPage
+export default Result
