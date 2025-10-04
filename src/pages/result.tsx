@@ -41,21 +41,23 @@ function Result() {
 
     useEffect(() => {
         setLoading(true)
-        const fetchData = async () => {
-        try {
-            const res = await fetch(
-                `http://127.0.0.1:8080/movies/update`
-            );
-            const data = await res.json();
-            setResults(data);
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-        };
+        setMovies(data_mock)
+        setLoading(false);
+        // const fetchData = async () => {
+        // try {
+        //     const res = await fetch(
+        //         `http://127.0.0.1:8080/movies/update`
+        //     );
+        //     const data = await res.json();
+        //     setResults(data);
+        // } catch (err) {
+        //     console.error(err);
+        // } finally {
+        //     setLoading(false);
+        // }
+        // };
 
-        fetchData();
+        // fetchData();
     }, [search, filter]);
 
 
