@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Home from './pages/home.tsx'
 import AboutUs from './pages/about-us.tsx'
 import Result from './pages/result.tsx'
+import Detail from './pages/detail.tsx'
 import PaperBackground from './components/Background.tsx'
 
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/detail/:id" element={<Detail />} />
         </Routes>
 
         <footer className="bg-[url('public/assets/footer.png')] w-full h-16 bg-cover bg-center"></footer>
