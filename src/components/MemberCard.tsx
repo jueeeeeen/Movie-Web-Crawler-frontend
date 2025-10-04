@@ -3,12 +3,11 @@ import { useState } from 'react';
 
 type MemberCardType = {
     name: string;
-    pictureUrl: string;
     studentId: string;
     text: string;
 }
 
-const MemberCard = ({ name, pictureUrl, studentId, text }: MemberCardType) => {
+const MemberCard = ({ name, studentId, text }: MemberCardType) => {
     const [flip, setFlip] = useState(false);
 
     return (
@@ -24,16 +23,15 @@ const MemberCard = ({ name, pictureUrl, studentId, text }: MemberCardType) => {
             >
             <div className='absolute w-full h-full backface-hidden flex flex-col items-center justify-center bg-white rounded-2xl shadow-md'>
                 <img 
-                    src={pictureUrl} 
+                    src={`../../public/member/${studentId}.jpg`} 
                     alt={name} 
                     className="w-48 h-48 object-cover rounded-2xl"
                 />
-                <div className='px-4 py-4'>
-                    <h2 className="font-bold text-lg mt-4 self-start text-wrap px-1">{name}</h2>
+                <div className='px-4 py-4 self-start'>
+                    <h2 className="font-bold text-lg mt-4 whitespace-pre-line px-1">{name}</h2>
                     <div className="inline-block font-bold text-grey bg-[#FFEAE9] px-2 py-1 rounded-xl mt-1">{studentId}</div>
                 </div>
                 </div>
-
                 <div className="absolute w-full h-full [transform:rotateY(180deg)] backface-hidden flex items-center justify-center bg-main-red text-white rounded-2xl p-4">
                     <p className="text-center">{text}</p>
                 </div>
