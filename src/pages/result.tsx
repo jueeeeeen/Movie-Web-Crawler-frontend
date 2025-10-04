@@ -30,6 +30,60 @@ interface MovieProps {
     cast_crew: CastCrew[];
 }
 
+interface ExportCSVButtonProps {
+  movies: MovieProps[];
+}
+
+const exportMoviesToCSV = async (movies: MovieProps[]) => {
+    if (!movies || movies.length === 0) return;
+
+    const maxCast = Math.max(...movies.map(m => m.cast_crew?.length || 0));
+
+    const headers = [
+        "Index","Rating","Title","Year","Link","Genre","Description",
+        "Poster Image","Cover Image","Release Date","Tomato Score",
+        "Tomato Reviews","Audience Score","Audience Ratings"
+    ];
+    for (let i = 1; i <= maxCast; i++) {
+        headers.push(`Cast${i}_Name`, `Cast${i}_Role`, `Cast${i}_Img`);
+    }
+
+    const rows = movies.map(movie => {
+        const row = [
+            movie.index, movie.rating, movie.title, movie.year, movie.link,
+            movie.genre, movie.description, movie.poster_img, movie.cover_img ?? "null",
+            movie.release_date, movie.tomato_score, movie.tomato_reviews,
+            movie.audience_score, movie.audience_ratings
+        ];
+
+        const castCrew = movie.cast_crew || [];
+
+        for (let i = 0; i < maxCast; i++) {
+            if (castCrew[i]) {
+                row.push(castCrew[i].name || "null");
+                row.push(castCrew[i].role || "null");
+                row.push(castCrew[i].img ?? "null");
+            } else {
+                row.push("null", "null", "null");
+            }
+        }
+
+        return row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(",");
+    });
+
+    const csvContent = [headers.join(","), ...rows].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `movies.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+};
+
 function Result() {
     const [loading, setLoading] = useState<boolean>(false);
     const [movies, setMovies] = useState<MovieProps[]>([]);
@@ -42,8 +96,6 @@ function Result() {
             const params = new URLSearchParams(location.search);
             const name = params.get("name") || "";
             const genre = params.get("genre") || "";
-            console.log(name)
-            console.log(genre)
             const newParams = new URLSearchParams();
 
             let url = "";
@@ -67,7 +119,6 @@ function Result() {
                 url = `http://127.0.0.1:8080/movies?${newParams.toString()}`;
             }
 
-            console.log(url)
             const res = await fetch(
                 url
             );
@@ -91,11 +142,14 @@ function Result() {
         <div className='w-screen min-h-screen p-15 gap-6'>
             <div className='flex flex-1 flex-col items-center gap-10'>                    
                     {loading && <Loader/>}
-                    <button className="px-4 h-14 self-end bg-sunglox text-main-red text-2xl rounded-full font-extrabold hover:cursor-pointer group relative overflow-hidden active:scale-[98%]">
+                    {!loading && <button
+                    onClick={() => exportMoviesToCSV(movies)}
+                    className="px-4 h-14 self-end bg-sunglox text-main-red text-2xl rounded-full font-extrabold hover:cursor-pointer group relative overflow-hidden active:scale-[98%]"
+                    >
                         <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">
                             EXPORT CSV
                         </span>
-                    </button>
+                    </button>}
                     <div className="flex flex-wrap gap-3 w-full">
                         {movies.length > 0 && !loading ? 
                         (

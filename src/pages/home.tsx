@@ -28,8 +28,6 @@ function Home() {
 
     const handleNamefilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNamefilter(e.target.value);
-        console.log(namefilter);
-        console.log(categoryFilter);
     };
 
     const handleCrawl = () => {

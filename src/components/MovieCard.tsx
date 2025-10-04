@@ -31,13 +31,13 @@ function MovieCard(movie: MovieProps) {
     return (
         <>
         <button 
-            className="w-[calc(20%-0.75rem)] aspect-3/4 flex flex-col bg-floral-white rounded-xl overflow-hidden hover:cursor-pointer hover:scale-102 transition-transform"
+            className="w-[calc(20%-0.75rem)] aspect-5/8 flex flex-col bg-floral-white rounded-xl overflow-hidden hover:cursor-pointer hover:scale-102 transition-transform"
             onClick={() => setOpenDetail(!openDetail)}
         >
             <div className={`w-full aspect-6/5 bg-cover bg-center bg-amber-200`}
                 style={{ backgroundImage: `url(${movie.poster_img})` }}>
             </div>
-            <div className='grid grid-cols-2 grid-rows-[1fr_auto_auto_auto] h-full p-2.5 font-bold gap-1'>
+            <div className='grid grid-cols-2 grid-rows-[auto_auto_auto_auto] h-full p-2.5 font-bold gap-1'>
                 <h2 className='text-lg font-black text-ellipsis line-clamp-2 leading-5 col-span-2 text-left'>{movie.title}</h2>
                 <p className='text-base font-extrabold text-grey text-left'>{movie.year}</p>
                 <span className='text-xs font-black flex gap-1 col-start-2 rounded-full items-center justify-self-end bg-light-red h-5.5 px-1.5'>
