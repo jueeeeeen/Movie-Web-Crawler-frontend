@@ -32,6 +32,14 @@ function Home() {
         console.log(categoryFilter);
     };
 
+    const handleCrawl = () => {
+    const filterString = Array.isArray(categoryFilter)
+        ? categoryFilter.join(",")
+        : categoryFilter;
+
+    navigate(`/result?name=${encodeURIComponent(namefilter)}&genre=${encodeURIComponent(filterString)}`);
+    };
+
     return (
         <>
         <Navbar crawled={false} page='home'/>
@@ -87,7 +95,7 @@ function Home() {
                 </div>
                     <button 
                         className="relative bg-main-red rounded-3xl w-[290px] h-[148px] top-1/4 hover:cursor-pointer"
-                        // onClick={}
+                        onClick={handleCrawl}
                     >
                         <span className='text-4xl font-bold text-floral-white'>Start Crawling!!</span>
                         <img
