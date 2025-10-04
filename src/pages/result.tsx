@@ -125,6 +125,10 @@ function Result() {
             const data: any = await res.json();
             console.log(data)
             setMovies(data.movies)
+            if (data.movies.length === 0) {
+                alert("No movies match your filter, Please try again.");
+                window.location.href = "/";
+            }
         } catch (err) {
             console.error(err);
         } finally {
