@@ -1,6 +1,6 @@
 import MovieCard from '../components/MovieCard.tsx'
 import { useEffect, useState } from "react";
-import Loader from '../components/loader.tsx';
+import Loader from '../components/Loader.tsx';
 import Navbar from '../components/Navbar.tsx'
 
 import { useLocation } from "react-router-dom";
