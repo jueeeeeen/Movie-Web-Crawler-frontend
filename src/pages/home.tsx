@@ -37,7 +37,7 @@ function Home() {
                         <span className='text-4xl font-bold text-floral-white'>Start Crawling!!</span>
                         <img
                             className="absolute top-0 scale-[102%]"
-                            src="src/assets/crawl-button-border.svg"
+                            src="public/assets/crawl-button-border.svg"
                         />
                     </button>
                 </div>

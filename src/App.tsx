@@ -18,7 +18,7 @@ function App() {
           <Route path="/result" element={<Result />} />
         </Routes>
 
-        <footer className="bg-[url('src/assets/footer.png')] w-full h-16 bg-cover bg-center"></footer>
+        <footer className="bg-[url('public/assets/footer.png')] w-full h-16 bg-cover bg-center"></footer>
       </div>
     </Router>
   )
