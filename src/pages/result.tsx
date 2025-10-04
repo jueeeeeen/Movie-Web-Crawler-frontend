@@ -169,6 +169,11 @@ function Result() {
         <div className='w-screen min-h-screen p-15 gap-6'>
             <div className='flex flex-1 flex-col items-center gap-10'>                    
                     {loading && <Loader/>}
+                    <button className="px-4 h-14 self-end bg-sunglox text-main-red text-2xl rounded-full font-extrabold hover:cursor-pointer group relative overflow-hidden active:scale-[98%]">
+                        <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">
+                            EXPORT CSV
+                        </span>
+                    </button>
                     <div className="flex flex-wrap gap-3 w-full">
                         {movies.length > 0 && !loading ? 
                         (
