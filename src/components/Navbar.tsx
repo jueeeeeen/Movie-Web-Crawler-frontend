@@ -8,7 +8,7 @@ type NavbarProps = {
 function Navbar({page, crawled}: NavbarProps) {
     return (
         <div className="w-full">
-            <nav className="px-16 bg-main-red w-full h-[120px] items-center justify-between flex">
+            <nav className="px-16 bg-main-red w-full h-[120px] items-center justify-between flex fixed z-50">
                 <Link 
                     className="font-bold items-center flex gap-7"
                     to="/">

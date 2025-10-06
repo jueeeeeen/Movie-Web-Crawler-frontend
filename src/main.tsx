@@ -7,6 +7,5 @@ const root = createRoot(document.getElementById("root")!);
 root.render(
   <StrictMode>
     <App />
-    <span className="w-2xl bg-red text-red">test</span>
   </StrictMode>
 );

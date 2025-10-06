@@ -106,22 +106,22 @@ function Result() {
             let url = "";
 
             if (name === "" && genre === "") {
-                url = `http://129.150.62.182/api/movies`;
+                url = `http://129.150.62.182:9000/api/movies`;
             }
             else if (name !== "" && genre === "") {
                 newParams.append("name", name);
-                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182:9000/api/movies?${newParams.toString()}`;
             }
             else if (name === "" && genre !== "") {
                 const genreArray = genre.split(",").map(g => g.trim()).filter(g => g !== "");
                 genreArray.forEach(g => newParams.append("genre", g));
-                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182:9000/api/movies?${newParams.toString()}`;
             }
             else {
                 newParams.append("name", name);
                 const genreArray = genre.split(",").map(g => g.trim()).filter(g => g !== "");
                 genreArray.forEach(g => newParams.append("genre", g));
-                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182:9000/api/movies?${newParams.toString()}`;
             }
 
             const res = await fetch(
@@ -151,7 +151,7 @@ function Result() {
     return (
         <>
         <Navbar crawled/>
-        <div className='w-screen min-h-screen p-15 gap-6'>
+        <div className='w-screen min-h-screen p-15 gap-6 pt-36'>
             <div className='flex flex-1 flex-col items-center gap-10'>                    
                     {loading && <Loader/>}
                     {!loading && <button

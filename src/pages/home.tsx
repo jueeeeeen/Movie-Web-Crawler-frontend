@@ -41,7 +41,7 @@ function Home() {
     return (
         <>
         <Navbar crawled={false} page='home'/>
-        <div className='w-screen min-h-screen grid grid-cols-[20%_1fr] p-15'>
+        <div className='w-screen min-h-screen grid grid-cols-[20%_1fr] p-15 pt-40'>
             <div className='flex flex-col gap-10 pr-6 border-r border-floral-white'>
                 <div className='relative rounded-lg bg-floral-white w-[260px] h-[590px] py-3 px-4'>
                     <img

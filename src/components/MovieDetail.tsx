@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ChevronLeft, ChevronDown } from "lucide-react"
+import { useEffect } from "react"
 
 interface CastCrew {
   name: string
@@ -34,8 +35,15 @@ interface MovieDetailsProps extends MovieProps {
 export default function MovieDetails({ onClose, ...movie }: MovieDetailsProps) {
   const [isOverviewExpanded, setIsOverviewExpanded] = useState(false)
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[100]">
       <div
         className="relative bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] rounded-2xl shadow-2xl 
                     w-[95%] md:w-[100%] lg:w-[85%] h-[88vh] overflow-y-auto p-8 
@@ -43,7 +51,7 @@ export default function MovieDetails({ onClose, ...movie }: MovieDetailsProps) {
       >
         <div className="flex flex-col gap-12 pt-4">
 
-          <div className="flex flex-col lg:flex-row gap-8 items-start justify-between w-full">
+          <div className="flex flex-col lg:flex-row gap-8 items-start justify-between w-full ">
             
             <div className="flex items-center gap-4">
               <button
@@ -116,11 +124,11 @@ export default function MovieDetails({ onClose, ...movie }: MovieDetailsProps) {
               />
             </div>
             <div className="flex-1 rounded-lg overflow-hidden shadow-2xl shadow-black/70">
-              <img
+              {movie.cover_img && (<img
                 src={movie.cover_img || "/placeholder.svg"}
                 alt={`${movie.title} scene`}
                 className="w-full h-[370px] object-cover rounded-lg"
-              />
+              />)}
             </div>
           </div>
 
