@@ -4,6 +4,7 @@ import Loader from '../components/Loader.tsx';
 import Navbar from '../components/Navbar.tsx'
 
 import { useLocation } from "react-router-dom";
+import { useRef } from 'react';
 
 
 interface CastCrew {
@@ -88,8 +89,12 @@ function Result() {
     const [loading, setLoading] = useState<boolean>(false);
     const [movies, setMovies] = useState<MovieProps[]>([]);
     const location = useLocation();
+    const effectCalled = useRef(false);
 
     useEffect(() => {
+        if (effectCalled.current) return;
+        effectCalled.current = true;
+
         setLoading(true)
         const fetchData = async () => {
         try {
@@ -101,22 +106,22 @@ function Result() {
             let url = "";
 
             if (name === "" && genre === "") {
-                url = `http://127.0.0.1:8080/movies`;
+                url = `http://129.150.62.182/api/movies`;
             }
             else if (name !== "" && genre === "") {
                 newParams.append("name", name);
-                url = `http://127.0.0.1:8080/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
             }
             else if (name === "" && genre !== "") {
                 const genreArray = genre.split(",").map(g => g.trim()).filter(g => g !== "");
                 genreArray.forEach(g => newParams.append("genre", g));
-                url = `http://127.0.0.1:8080/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
             }
             else {
                 newParams.append("name", name);
                 const genreArray = genre.split(",").map(g => g.trim()).filter(g => g !== "");
                 genreArray.forEach(g => newParams.append("genre", g));
-                url = `http://127.0.0.1:8080/movies?${newParams.toString()}`;
+                url = `http://129.150.62.182/api/movies?${newParams.toString()}`;
             }
 
             const res = await fetch(
@@ -125,9 +130,12 @@ function Result() {
             const data: any = await res.json();
             console.log(data)
             setMovies(data.movies)
-            if (data.movies.length === 0) {
+            if ("detail" in data) {
                 alert("No movies match your filter, Please try again.");
                 window.location.href = "/";
+            } 
+            else {
+                setMovies(data.movies);
             }
         } catch (err) {
             console.error(err);
